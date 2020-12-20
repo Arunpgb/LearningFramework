@@ -16,10 +16,7 @@ public class BaseClass {
 	public static Properties prop;
 	// public static EventFiringWebDriver e_driver;
 	// public static WebDriverEventListener eventListener;
-    
-	public WebDriver driver() {
-		return driver;
-	}
+
 	public BaseClass() {
 		try {
 			prop = new Properties();
@@ -27,9 +24,9 @@ public class BaseClass {
 			FileInputStream ip = new FileInputStream(
 					"D:\\Arun\\Arun_2020\\Automation_new\\Work\\Develop\\src\\main\\java\\Utility\\BaseUtility.properties");
 
-			// FileInputStream ip = new FileInputStream(".\\BaseUtility.properties");
 			prop.load(ip);
-			  PropertyConfigurator.configure("D:\\Arun\\Arun_2020\\Automation_new\\Work\\Develop\\src\\main\\resources\\log4j.properties");
+			PropertyConfigurator.configure(
+					"D:\\Arun\\Arun_2020\\Automation_new\\Work\\Develop\\src\\main\\resources\\log4j.properties");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -37,15 +34,12 @@ public class BaseClass {
 		}
 	}
 
-	public  static void initialization() {
+	public static void initialization() {
 		String browserName = prop.getProperty("browser");
-		if (browserName.equals("chrome")) {
-
-			// System.setProperty("webdriver.chrome.driver", "‪‪‪‪E:\\Tech
-			// Java\\chromedriver.exe");
+		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
-		} else if (browserName.equals("FF")) {
+		} else if (browserName.equalsIgnoreCase("FF")) {
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 		}
@@ -68,5 +62,10 @@ public class BaseClass {
 
 		driver.get(prop.getProperty("url"));
 
+	}
+
+	public static WebDriver getDriver() {
+		// Get Driver from threadLocalmap
+		return driver;
 	}
 }
