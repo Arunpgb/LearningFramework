@@ -7,7 +7,8 @@ import LogHelper.Loghelp;
 
 public class FrameHelper extends BaseClass {
 
-	public FrameHelper() {
+	public FrameHelper() throws Exception {
+		super();
 		Loghelp.info("Frame Helper Initialised.......");
 	}
 	// WebDriver driver= new ChromeDriver();

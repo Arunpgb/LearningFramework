@@ -17,11 +17,12 @@ public class Home extends BaseClass {
 	@FindBy(xpath = "//a[@href='Register.html']")
 	public WebElement reglink;
 
-	public Home() throws IOException {
+	public Home() throws Exception {
+		super();
 		PageFactory.initElements(driver, this);
 	}
 
-	public Registration pagereg() throws IOException {
+	public Registration pagereg() throws Exception {
 		try {
 			emailreg.sendKeys("babu@gmail.com");
 			reglink.click();

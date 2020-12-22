@@ -1,13 +1,9 @@
 package JavaMain;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
-
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.OutputType;
@@ -15,42 +11,33 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
+import Utility.PropertyHelper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
-	//public static  ThreadLocal<WebDriver> driver;
+	// public static ThreadLocal<WebDriver> driver;
 	public static WebDriver driver;
-	public static Properties prop;
+
 	// public static EventFiringWebDriver e_driver;
 	// public static WebDriverEventListener eventListener;
 
-	public BaseClass() {
-		try {
-			prop = new Properties();
+	public BaseClass() throws Exception {
+		// PropertyConfigurator.configure("D:\\Arun\\Arun_2020\\Automation_new\\Work\\Develop\\src\\main\\resources\\log4j.properties");
 
-			FileInputStream ip = new FileInputStream(
-					"D:\\Arun\\Arun_2020\\Automation_new\\Work\\Develop\\src\\main\\java\\Utility\\BaseUtility.properties");
-
-			prop.load(ip);
-			PropertyConfigurator.configure(
-					"D:\\Arun\\Arun_2020\\Automation_new\\Work\\Develop\\src\\main\\resources\\log4j.properties");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// ** Initialize the Log4j Configurations
+		PropertyConfigurator.configure(PropertyHelper.getPropertyvalue("LogConfig"));
 	}
 
-	public static void initialization() {
-		String browserName = prop.getProperty("browser");
+	public static void initialization() throws Exception {
+
+		String browserName = PropertyHelper.getPropertyvalue("browser");
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			driver=new ChromeDriver();
-		} else if (browserName.equalsIgnoreCase("FF")) {
+			driver = new ChromeDriver();
+		} else if (browserName.equalsIgnoreCase("Firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			driver=new FirefoxDriver();
+			driver = new FirefoxDriver();
 		}
 
 		// e_driver = new EventFiringWebDriver(driver);
@@ -62,14 +49,11 @@ public class BaseClass {
 
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
-		/*
-		 * driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT,
-		 * TimeUnit.SECONDS);
-		 * driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT,
-		 * TimeUnit.SECONDS);
-		 */
-
-		driver.get(prop.getProperty("url"));
+		driver.manage().timeouts().pageLoadTimeout(Long.parseLong(PropertyHelper.getPropertyvalue("pageloadtime")),
+				TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyHelper.getPropertyvalue("implicittime")),
+				TimeUnit.SECONDS);
+		driver.get(PropertyHelper.getPropertyvalue("url"));
 
 	}
 
@@ -77,7 +61,7 @@ public class BaseClass {
 		// Get Driver from threadLocalmap
 		return driver;
 	}
-	
+
 	public String screenShot(WebDriver driver, String filename) {
 		String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 		TakesScreenshot takesScreenshot = (TakesScreenshot) driver;

@@ -14,8 +14,8 @@ import LogHelper.Loghelp;
  */
 public class WindowHelper extends BaseClass {
 
-	public WindowHelper() {
-		// super();
+	public WindowHelper() throws Exception {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

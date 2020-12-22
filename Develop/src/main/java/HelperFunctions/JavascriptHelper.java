@@ -7,10 +7,11 @@ import LogHelper.Loghelp;
 
 public class JavascriptHelper extends BaseClass {
 
-	public JavascriptHelper() {
+	public JavascriptHelper() throws Exception {
 		/*
 		 * this.driver = driver; Loghelp.info("JavaScriptHelper has been initialised");
 		 */
+		super();
 	}
 
 	/**

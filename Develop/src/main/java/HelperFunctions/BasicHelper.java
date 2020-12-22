@@ -4,7 +4,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -16,7 +15,8 @@ import LogHelper.Loghelp;
 public class BasicHelper extends BaseClass {
 	WaitHelper wait;
 
-	public BasicHelper() {
+	public BasicHelper() throws Exception {
+		super();
 		Loghelp.info("Basic Helper has been initialized....");
 		wait = new WaitHelper();
 	}

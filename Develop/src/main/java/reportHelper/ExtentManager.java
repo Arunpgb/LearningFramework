@@ -9,11 +9,15 @@ import JavaMain.BaseClass;
 
 public class ExtentManager extends BaseClass{
 	
+	public ExtentManager() throws Exception {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public static ExtentHtmlReporter htmlReporter;
 	public static ExtentReports extent;
 	public static ExtentTest test;
 	static BasicHelper basehelp;
-	public static void setExtent() {
+	public static void setExtent() throws Exception {
 		basehelp= new BasicHelper();
 		htmlReporter= new ExtentHtmlReporter(System.getProperty("user.dir")+"/test-output/ExtentReport/"+"MyReport_"+basehelp.getCurrentTime()+".html");
 		//htmlReporter= new ExtentHtmlReporter(System.getProperty("user.dir")+"/test-output/ExtentReport/"+"MyReport.html");
@@ -24,7 +28,6 @@ public class ExtentManager extends BaseClass{
 		
 		extent = new ExtentReports();
 		extent.attachReporter(htmlReporter);
-		
 		extent.setSystemInfo("HostName", "MyHost");
 		extent.setSystemInfo("ProjectName", "LearningFramework");
 		extent.setSystemInfo("Tester", "Arun");

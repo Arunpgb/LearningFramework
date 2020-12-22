@@ -11,8 +11,8 @@ import LogHelper.Loghelp;
 
 public class DropDownHelper extends BaseClass {
 		
-	public DropDownHelper(){
-		
+	public DropDownHelper() throws Exception{
+		super();
 		Loghelp.info("DropDownHelper object created..");
 	}
 	

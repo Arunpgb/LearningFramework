@@ -1,11 +1,7 @@
 package testpackages;
 
-import java.io.IOException;
-
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import HelperFunctions.AssertionHelper;
@@ -20,12 +16,12 @@ public class RegisterTest extends BaseClass {
 	Registration reg;
 	AssertionHelper Assertion;
 
-	public RegisterTest() throws IOException {
+	public RegisterTest() throws Exception {
 		super();
 	}
 
-	@Test(priority = 1,enabled=false)
-	public void Automate() throws IOException, InterruptedException {
+	@Test(priority = 1, enabled = false)
+	public void Automate() throws Exception {
 		lp.pagereg();
 		reg.passDatas();
 	}
@@ -43,7 +39,7 @@ public class RegisterTest extends BaseClass {
 	}
 
 	@BeforeClass
-	public void Fireon() throws IOException {
+	public void Fireon() throws Exception {
 		initialization();
 		lp = new Home();
 		reg = new Registration();

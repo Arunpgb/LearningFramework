@@ -2,6 +2,8 @@ package JavaMain;
 
 import java.io.IOException;
 import java.util.List;
+
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -84,7 +86,8 @@ public class Registration extends BaseClass {
 
 	private List<WebElement> allvalues;
 
-	public Registration() throws IOException {
+	public Registration() throws Exception {
+		super();
 		PageFactory.initElements(driver, this);
 	}
 

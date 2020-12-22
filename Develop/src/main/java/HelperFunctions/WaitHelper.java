@@ -25,10 +25,11 @@ public class WaitHelper extends BaseClass {
 
 	// private WebDriver driver;
 
-	public WaitHelper() {
+	public WaitHelper() throws Exception {
 		/*
 		 * this.driver = driver; Loghelp.info("WaitHelper object created..");
 		 */
+		super();
 	}
 
 	/**
