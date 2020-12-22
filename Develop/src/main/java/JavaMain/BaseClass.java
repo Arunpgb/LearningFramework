@@ -1,17 +1,26 @@
 package JavaMain;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
+	//public static  ThreadLocal<WebDriver> driver;
 	public static WebDriver driver;
 	public static Properties prop;
 	// public static EventFiringWebDriver e_driver;
@@ -38,10 +47,10 @@ public class BaseClass {
 		String browserName = prop.getProperty("browser");
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			driver=new ChromeDriver();
 		} else if (browserName.equalsIgnoreCase("FF")) {
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
+			driver=new FirefoxDriver();
 		}
 
 		// e_driver = new EventFiringWebDriver(driver);
@@ -67,5 +76,22 @@ public class BaseClass {
 	public static WebDriver getDriver() {
 		// Get Driver from threadLocalmap
 		return driver;
+	}
+	
+	public String screenShot(WebDriver driver, String filename) {
+		String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+		TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
+		File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
+		String destination = System.getProperty("user.dir") + "\\ScreenShots\\" + filename + "_" + dateName + ".png";
+
+		try {
+			FileUtils.copyFile(source, new File(destination));
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		// This new path for jenkins
+		String newImageString = "http://localhost:8082/job/MyStoreProject/ws/MyStoreProject/ScreenShots/" + filename
+				+ "_" + dateName + ".png";
+		return destination;
 	}
 }

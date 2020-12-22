@@ -3,9 +3,8 @@ package testpackages;
 import java.io.IOException;
 
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -25,31 +24,25 @@ public class RegisterTest extends BaseClass {
 		super();
 	}
 
-	@BeforeSuite
-	public void Beforesuite() {
-		ExtentManager.setExtent();
-			}
-
-	@Test
+	@Test(priority = 1,enabled=false)
 	public void Automate() throws IOException, InterruptedException {
 		lp.pagereg();
 		reg.passDatas();
 	}
 
-	@Test
-	public void TestPass()
-	{
-		Assertion.markPass("Test Pass");
+	@Test(priority = 2)
+	public void TestPass() {
+		AssertionHelper.markPass("Test Pass");
 		ExtentManager.test.info("Test Pass");
 	}
-	
-	@Test
-	public void TestFail()
-	{
-		Assertion.markFail("Test Fail");
+
+	@Test(priority = 3)
+	public void TestFail() {
+		AssertionHelper.markFail("Test Fail");
 		ExtentManager.test.info("Test Fail");
 	}
-	@BeforeMethod
+
+	@BeforeClass
 	public void Fireon() throws IOException {
 		initialization();
 		lp = new Home();
@@ -61,11 +54,5 @@ public class RegisterTest extends BaseClass {
 		driver.quit();
 
 	}
-	
-	@AfterSuite
-	public void Aftersuite() {
-		ExtentManager.endReport();
-			}
-	
 
 }
